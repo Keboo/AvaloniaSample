@@ -15,15 +15,18 @@
     <vm:CounterViewModel />
   </Design.DataContext>
   <UserControl.Resources>
-    <local:IsFourValueConverter x:Key="IsFourValueConverter" />
+    <!-- 
+    Note: Converter properties are just auto properties, not bindable ones so the values cannot be set with Bindings.
+    -->
+    <local:IsInRangeValueConverter x:Key="IsInRangeValueConverter" Min="3.8" Max="4.2" />
   </UserControl.Resources>
 
   <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
     <NumericUpDown Value="{Binding Counter}"
-                   Classes.isfour="{Binding Counter, Converter={StaticResource IsFourValueConverter}}">
+                   Classes.isInRange="{Binding Counter, Converter={StaticResource IsInRangeValueConverter}}">
       <NumericUpDown.Styles>
-        <Style Selector="NumericUpDown.isfour">
+        <Style Selector="NumericUpDown.isInRange">
           <Setter Property="Foreground" Value="Fuchsia" />
         </Style>
       </NumericUpDown.Styles>

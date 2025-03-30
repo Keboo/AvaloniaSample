@@ -6,7 +6,7 @@ namespace AvaloniaSample.ViewModels;
 public partial class CounterViewModel : ObservableObject
 {
     [ObservableProperty]
-    private int _counter;
+    private decimal _counter;
 
     [RelayCommand]
     public void Increment() => Counter++;

@@ -2,10 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:AvaloniaSample.Views"
              xmlns:vm="clr-namespace:AvaloniaSample.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaSample.Views.MainView"
              x:DataType="vm:MainViewModel">
+  <UserControl.Resources>
+    <local:IsFourValueConverter x:Key="IsFourValueConverter" />
+  </UserControl.Resources>
+  
   <Design.DataContext>
     <!--
     This only sets the DataContext for the previewer in an IDE.
@@ -14,12 +19,26 @@
     <vm:MainViewModel />
   </Design.DataContext>
 
+  <!--<TabControl>
+    <TabItem Header="Counter" />
+    <TabItem Header="Name" />
+    <TabItem Header="Combined" />
+  </TabControl>-->
+
   <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
     <TextBlock Text="{Binding Greeting}" />
+
+    <NumericUpDown Value="{Binding Counter.Counter}"
+                   Classes.isfour="{Binding Counter.Counter, Converter={StaticResource IsFourValueConverter}}">
+                   
+      <NumericUpDown.Styles>
+        <Style Selector="NumericUpDown.isfour">
+          <Setter Property="Foreground" Value="Fuchsia" />
+        </Style>
+      </NumericUpDown.Styles>
+    </NumericUpDown>
     
-    <NumericUpDown Value="{Binding Counter}" />
-    
-    <TextBlock Text="{Binding Counter, StringFormat='Clicked {0} times'}" Margin="0,20,0,0" />
-    <Button Command="{Binding IncrementCommand}" Content="Click me!" />
+    <TextBlock Text="{Binding Counter.Counter, StringFormat='Clicked {0} times'}" Margin="0,20,0,0" />
+    <Button Command="{Binding Counter.IncrementCommand}" Content="Click me!" />
   </StackPanel>
 </UserControl>

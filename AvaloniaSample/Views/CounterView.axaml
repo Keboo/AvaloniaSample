@@ -2,7 +2,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaSample.ViewModels"
+             xmlns:local="using:AvaloniaSample.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaSample.CounterView">
-  Welcome to Avalonia!
+             x:Class="AvaloniaSample.Views.CounterView"
+             x:DataType="vm:CounterViewModel">
+  <Design.DataContext>
+    <!--
+    This only sets the DataContext for the previewer in an IDE.
+    The actual setting of the DataContext is done in the code-behind with an overloaded constructor.
+    -->
+    <vm:CounterViewModel />
+  </Design.DataContext>
+  <UserControl.Resources>
+    <local:IsFourValueConverter x:Key="IsFourValueConverter" />
+  </UserControl.Resources>
+
+  <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+    <NumericUpDown Value="{Binding Counter}"
+                   Classes.isfour="{Binding Counter, Converter={StaticResource IsFourValueConverter}}">
+      <NumericUpDown.Styles>
+        <Style Selector="NumericUpDown.isfour">
+          <Setter Property="Foreground" Value="Fuchsia" />
+        </Style>
+      </NumericUpDown.Styles>
+    </NumericUpDown>
+
+    <TextBlock Text="{Binding Counter, StringFormat='Clicked {0} times'}" Margin="0,20,0,0" />
+    <Button Command="{Binding IncrementCommand}" Content="Click me!" />
+  </StackPanel>
 </UserControl>

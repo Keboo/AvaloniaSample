@@ -2,14 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="using:AvaloniaSample.Views"
              xmlns:vm="clr-namespace:AvaloniaSample.ViewModels"
+             xmlns:local="using:AvaloniaSample.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaSample.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <UserControl.Resources>
-    <local:IsFourValueConverter x:Key="IsFourValueConverter" />
-  </UserControl.Resources>
   
   <Design.DataContext>
     <!--
@@ -19,26 +16,27 @@
     <vm:MainViewModel />
   </Design.DataContext>
 
-  <!--<TabControl>
-    <TabItem Header="Counter" />
-    <TabItem Header="Name" />
-    <TabItem Header="Combined" />
-  </TabControl>-->
-
-  <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+  <Grid RowDefinitions="Auto,*">
     <TextBlock Text="{Binding Greeting}" />
-
-    <NumericUpDown Value="{Binding Counter.Counter}"
-                   Classes.isfour="{Binding Counter.Counter, Converter={StaticResource IsFourValueConverter}}">
-                   
-      <NumericUpDown.Styles>
-        <Style Selector="NumericUpDown.isfour">
-          <Setter Property="Foreground" Value="Fuchsia" />
-        </Style>
-      </NumericUpDown.Styles>
-    </NumericUpDown>
     
-    <TextBlock Text="{Binding Counter.Counter, StringFormat='Clicked {0} times'}" Margin="0,20,0,0" />
-    <Button Command="{Binding Counter.IncrementCommand}" Content="Click me!" />
-  </StackPanel>
+  <TabControl Grid.Row="1">
+    <TabItem Header="Counter">
+      <!-- 
+      Forwarding the appropriate view model to the view.
+      This should match the type of VM that the view expects in its x:DataType attribute.
+      -->
+      <local:CounterView DataContext="{Binding Counter}" />
+    </TabItem>
+    <TabItem Header="Name">
+      <local:NameView DataContext="{Binding Name}" />
+    </TabItem>
+    <TabItem Header="Combined">
+      <!-- Inline view showing how to leverage the top level view model -->
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock Text="{Binding Name.Name, StringFormat='Hello {0}'}" />
+        <TextBlock Text="{Binding Counter.Counter, StringFormat='The value is {0}'}" />
+      </StackPanel>
+    </TabItem>
+  </TabControl>
+  </Grid>
 </UserControl>

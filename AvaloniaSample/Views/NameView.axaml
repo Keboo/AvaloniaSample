@@ -2,7 +2,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaSample.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaSample.NameView">
-  Welcome to Avalonia!
+             x:Class="AvaloniaSample.Views.NameView"
+             x:DataType="vm:NameViewModel">
+  <Design.DataContext>
+    <!--
+    This only sets the DataContext for the previewer in an IDE.
+    The actual setting of the DataContext is done in the code-behind with an overloaded constructor.
+    -->
+    <vm:NameViewModel />
+  </Design.DataContext>
+  <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+    <TextBlock Text="Enter a name" />
+    <TextBox Text="{Binding Name}" MinWidth="200"/>
+  </StackPanel>
 </UserControl>

@@ -23,8 +23,10 @@
 
   <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-    <NumericUpDown Value="{Binding Counter}"
-                   Classes.isInRange="{Binding Counter, Converter={StaticResource IsInRangeValueConverter}}">
+    <NumericUpDown Value="{Binding Counter}">
+      <NumericUpDown.InnerRightContent>
+        <TextBlock Text="m/s" FontSize="8"/>
+      </NumericUpDown.InnerRightContent>
       <NumericUpDown.Styles>
         <Style Selector="NumericUpDown.isInRange">
           <Setter Property="Foreground" Value="Fuchsia" />

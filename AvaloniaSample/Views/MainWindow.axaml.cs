@@ -1,4 +1,7 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+
+using AvaloniaSample.ViewModels;
 
 namespace AvaloniaSample.Views;
 
@@ -15,5 +18,19 @@ public partial class MainWindow : Window
         : this()
     {
         Content = mainView;
+    }
+
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        base.OnLoaded(e);
+
+        var dialog = new CustomDialog()
+        {
+            DataContext = new CustomDialogViewModel
+            {
+                Message = "Welcome to the demo"
+            }
+        };
+        dialog.ShowDialog(this);
     }
 }

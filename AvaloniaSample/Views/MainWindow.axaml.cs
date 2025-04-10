@@ -20,17 +20,17 @@ public partial class MainWindow : Window
         Content = mainView;
     }
 
-    protected override void OnLoaded(RoutedEventArgs e)
+    protected override async void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
 
+        CustomDialogViewModel viewModel = new();
         var dialog = new CustomDialog()
         {
-            DataContext = new CustomDialogViewModel
-            {
-                Message = "Welcome to the demo"
-            }
+            DataContext = viewModel
         };
-        dialog.ShowDialog(this);
+        bool dialogResult = await dialog.ShowDialog<bool>(this);
+        //TODO: Check the dialog result
+        //TODO: Use viewModel.Name
     }
 }

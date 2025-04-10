@@ -8,7 +8,7 @@ public partial class CustomDialogViewModel : ObservableObject
     public event EventHandler? Close;
 
     [ObservableProperty]
-    private string? _message;
+    private string? _name;
 
     [RelayCommand]
     public void Ok()
